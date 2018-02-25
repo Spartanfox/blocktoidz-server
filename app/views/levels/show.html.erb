@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<div class="jumbotron">
+  <p><%= @level.name %></p>
+  <%= @level.gamemode %><br>
+  <%= @level.image_url %><br>
+  <%= link_to 'Edit', edit_level_path(@level) %> |
+  <%= link_to 'Back', levels_path %>
+</div>

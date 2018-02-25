@@ -6,8 +6,9 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails_12factor', group: :production
-
+gem 'simple_form'
 gem 'bootstrap-sass'
+gem 'jquery-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
