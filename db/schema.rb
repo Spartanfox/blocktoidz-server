@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180225075253) do
+ActiveRecord::Schema.define(version: 20180228020247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "highscores", force: :cascade do |t|
     t.string "name"
-    t.string "date"
-    t.string "score"
+    t.string "time"
     t.bigint "level_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score"
     t.index ["level_id"], name: "index_highscores_on_level_id"
   end
 

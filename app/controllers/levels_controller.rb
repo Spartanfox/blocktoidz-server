@@ -10,6 +10,7 @@ class LevelsController < ApplicationController
   # GET /levels/1
   # GET /levels/1.json
   def show
+    @highscores = @level.highscores.sort{|a,b| b.score.to_i <=> a.score.to_i}
   end
 
   # GET /levels/new
@@ -19,6 +20,28 @@ class LevelsController < ApplicationController
 
   # GET /levels/1/edit
   def edit
+  end
+
+  def upload
+    @level = Level.find_by_name(params[:level_id])
+    @highscore = @level.highscores.new(highscore_params)
+    @highscores = @level.highscores
+    @highscores.each do |highscore|
+      if highscore.name == @highscore.name
+        if @highscore.score >= highscore.score
+          highscore.update(highscore_params)
+          @highscore = highscore
+          break
+        else
+          @highscore.score = nil
+          break
+        end
+      end
+    end
+    if !!@highscore.score
+      @highscore.save
+    end
+    redirect_to level_highscores_path(Level.find(@highscore.level_id), format: :json)
   end
 
   # POST /levels
@@ -64,12 +87,15 @@ class LevelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_level
-      @level = Level.find(params[:id])
+      @level = Level.find_by_name(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def level_params
       params.require(:level).permit(:name, :gamemode, :image_url)
+    end
 
+    def highscore_params
+      params.require(:highscore).permit(:name, :time, :score)
     end
 end

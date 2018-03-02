@@ -1,2 +1,2 @@
-json.extract! highscore, :id, :created_at, :updated_at
+json.extract! highscore, :id, :name, :time, :score
 json.url highscore_url(highscore, format: :json)

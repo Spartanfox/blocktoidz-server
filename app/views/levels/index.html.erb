@@ -1,25 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Levels</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="list-group">
+    <div class="list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-start">
+        <h2 class="mb-1">Blocktoidz Levels
+          <%= link_to 'New Level', new_level_path %>
+        </h2>
+      </div>
+    </div>
     <% @levels.each do |level| %>
-      <tr>
-        <td><%= link_to 'Show', level %></td>
-        <td><%= link_to 'Edit', edit_level_path(level) %></td>
-        <td><%= link_to 'Destroy', level, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Level', new_level_path %>
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex justify-content-around ">
+          <h3 class="mb-1">
+            <%= link_to 'View highscores', level_path(level), class:"btn btn-default"%>
+            <%= level.name%>
+          </h3>
+        </div>
+        <p class="mb-1"><%= level.gamemode%></p>
+        <small class="text-muted"><%= level.highscores.size%> Highscores</small>
+        <small class="text-muted"><%= level.created_at.strftime("%D - %I:%M %p")%></small>
+      </div>
+    <%end%>
+  </div>

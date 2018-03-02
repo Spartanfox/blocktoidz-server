@@ -1,39 +1,59 @@
 class HighscoresController < ApplicationController
   before_action :set_highscore, only: [:show, :edit, :update, :destroy]
-
   # GET /highscores
   # GET /highscores.json
   def index
-    @highscores = Highscore.all
+    @level = Level.find_by_name(params[:level_id])
+    @highscores = @level.highscores
   end
 
   # GET /highscores/1
   # GET /highscores/1.json
   def show
+
   end
 
   # GET /highscores/new
   def new
-    @highscore = Highscore.new
+    @level = Level.find_by_name(params[:level_id])
+    @highscore = @level.highscores.new
   end
 
   # GET /highscores/1/edit
   def edit
   end
 
+
+
   # POST /highscores
   # POST /highscores.json
   def create
-    @highscore = Highscore.new(highscore_params)
-
-    respond_to do |format|
-      if @highscore.save
-        format.html { redirect_to @highscore, notice: 'Highscore was successfully created.' }
-        format.json { render :show, status: :created, location: @highscore }
-      else
-        format.html { render :new }
-        format.json { render json: @highscore.errors, status: :unprocessable_entity }
+    @level = Level.find_by_name(params[:level_id])
+    @highscore = @level.highscores.new(highscore_params)
+    @highscores = @level.highscores
+    @highscores.each do |highscore|
+      if highscore.name == @highscore.name
+        if @highscore.score > highscore.score
+          highscore.update(highscore_params)
+          @highscore = highscore
+        else
+          @highscore.score = nil
+          break
+        end
       end
+    end
+    if !!@highscore.score
+      respond_to do |format|
+        if @highscore.save
+          format.html { redirect_to level_highscores_path(Level.find(@highscore.level_id), format: :json), notice: 'Highscore was successfully created.' }
+          format.json { render :show, status: :created, location: @highscore }
+        else
+          format.html { render :new }
+          format.json { render json: @highscore.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to level_highscores_path(Level.find(@highscore.level_id), format: :json)
     end
   end
 
@@ -42,7 +62,7 @@ class HighscoresController < ApplicationController
   def update
     respond_to do |format|
       if @highscore.update(highscore_params)
-        format.html { redirect_to @highscore, notice: 'Highscore was successfully updated.' }
+        format.html { redirect_to level_highscores_path(Level.find(@highscore.level_id), format: :json), notice: 'Highscore was successfully updated.' }
         format.json { render :show, status: :ok, location: @highscore }
       else
         format.html { render :edit }
@@ -64,11 +84,12 @@ class HighscoresController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_highscore
-      @highscore = Highscore.find(params[:id])
+      @level = Level.find_by_name(params[:level_id])
+      @highscore = @level.highscores.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def highscore_params
-      params.fetch(:highscore, {})
+      params.require(:highscore).permit(:name, :time, :score)
     end
 end

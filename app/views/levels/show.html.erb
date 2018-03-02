@@ -1,8 +1,26 @@
 <p id="notice"><%= notice %></p>
-<div class="jumbotron">
-  <p><%= @level.name %></p>
-  <%= @level.gamemode %><br>
-  <%= @level.image_url %><br>
-  <%= link_to 'Edit', edit_level_path(@level) %> |
-  <%= link_to 'Back', levels_path %>
-</div>
+
+<div class="list-group">
+    <div class="list-group-item list-group-item-action flex-column align-items-start active">
+      <div class="d-flex w-100 justify-content-start">
+        <h2 class="mb-1">
+          <div>
+            <%= @level.name %> Highscores
+            <%= link_to 'Edit', edit_level_path(@level) %> |
+            <%= link_to 'Back', levels_path %>
+          </div>
+          <%= link_to 'New highscore',  new_level_highscore_path(@level) %><br>
+          <%= link_to "Upload test highscore", level_upload_path(@level, :highscore => { :name => "Spartanfox", :time => "00:01:43", :score => 1 }) %>
+        </h2>
+      </div>
+    </div>
+    <% @highscores.each do |highscore| %>
+      <div class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex justify-content-around ">
+          <h3 class="mb-1">
+            <%= highscore.name %> <%= highscore.time %> <%= highscore.score %> <%= link_to "Edit" , edit_level_highscore_path(@level, highscore)%>
+          </h3>
+        </div>
+      </div>
+    <%end%>
+  </div>
