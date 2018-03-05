@@ -9,8 +9,30 @@
   </head>
 
   <body>
+    <center>
+      <img src="https://lh3.googleusercontent.com/-NzN3QjKVAA8/WooUYlWaScI/AAAAAAAAAIc/T5Lj6gox9nApU0CnFKnivOJuOC2QtaXawCEwYBhgL/w1400-h380-p/BANNIR.png" class="img-rounded" alt="Blocktoidz" >
+    </center>
+    <br>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Blocktoidz</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="<%= current_page?(home_path    )? "active" : ""%>"><%= link_to "Home", home_path         %></li>
+      <li class="<%= current_page?(levels_path  )? "active" : ""%>"><%= link_to "Levels", levels_path     %></li>
+      <li class="<%= current_page?(download_path)? "active" : ""%>"><%= link_to "Download", download_path %></li>
+    </ul>
+  </div>
+</nav>
     <div class="jumbotron" style=" padding-left: 10em; padding-right: 10em;">
       <%= yield %>
     </div>
   </body>
+  <footer class="footer">
+    <center>
+     A website by spartanfox productions 2018
+    </center>
+  </footer>
+
 </html>
