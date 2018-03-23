@@ -2,4 +2,4 @@
 
 <%= render 'form', highscore: @highscore %>
 <%= button_to 'Back', level_path(@level), :method => :get %>
-<%= button_to "Delete", @highscore, method: :delete %>
+<%= button_to "Delete", [@level, @highscore], method: :delete %>
