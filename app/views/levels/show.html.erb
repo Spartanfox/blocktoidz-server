@@ -17,7 +17,7 @@
       <div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex justify-content-around ">
           <h3 class="mb-1">
-            <%= highscore.name %> <%= highscore.time %> <%= highscore.score %> <%#= link_to "Edit" , edit_level_highscore_path(@level, highscore)%>
+            <%= @highscores.find_index(highscore)+1 %><%= link_to ":" , edit_level_highscore_path(@level, highscore)%> <%= highscore.name %> <%= highscore.time %> <%= highscore.score %> 
           </h3>
         </div>
       </div>

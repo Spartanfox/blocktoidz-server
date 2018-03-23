@@ -1,5 +1,6 @@
 class HighscoresController < ApplicationController
   before_action :set_highscore, only: [:show, :edit, :update, :destroy]
+  http_basic_authenticate_with name: "Spartanfox", password: "toidzBlock", except: [:index, :show]
   # GET /highscores
   # GET /highscores.json
   def index
@@ -21,6 +22,7 @@ class HighscoresController < ApplicationController
 
   # GET /highscores/1/edit
   def edit
+    @level = Level.find_by_name(params[:level_id])
   end
 
 
@@ -76,7 +78,7 @@ class HighscoresController < ApplicationController
   def destroy
     @highscore.destroy
     respond_to do |format|
-      format.html { redirect_to highscores_url, notice: 'Highscore was successfully destroyed.' }
+      format.html { redirect_to level_path(Level.find_by_name(params[:level_id])), notice: 'Highscore was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,6 +1,5 @@
 <h1>Editing Highscore</h1>
 
 <%= render 'form', highscore: @highscore %>
-
-<%= link_to 'Show', @highscore %> |
-<%= link_to 'Back', level_path(@level) %>
+<%= button_to 'Back', level_path(@level), :method => :get %>
+<%= button_to "Delete", @highscore, method: :delete %>

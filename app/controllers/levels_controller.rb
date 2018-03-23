@@ -1,6 +1,6 @@
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :edit, :update, :destroy]
-
+  http_basic_authenticate_with name: "Spartanfox", password: "toidzBlock", except: [:upload, :index, :show]
   # GET /levels
   # GET /levels.json
   def index
@@ -27,7 +27,7 @@ class LevelsController < ApplicationController
     @highscore = @level.highscores.new(highscore_params)
     @highscores = @level.highscores
     @highscores.each do |highscore|
-      if highscore.name == @highscore.name
+      if highscore.name.downcase == @highscore.name.downcase
         if @highscore.score >= highscore.score
           highscore.update(highscore_params)
           @highscore = highscore
