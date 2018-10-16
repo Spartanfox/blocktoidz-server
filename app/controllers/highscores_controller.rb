@@ -7,7 +7,7 @@ class HighscoresController < ApplicationController
     @level = Level.find_by_name(params[:level_id])
     @highscores = @level.highscores
     @start = 0
-    @end = 0
+    @end = 9
     if params[:page]?
       @start = params[:page]
       @end = @start + 10
