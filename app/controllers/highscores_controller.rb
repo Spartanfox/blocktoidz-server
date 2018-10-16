@@ -8,7 +8,7 @@ class HighscoresController < ApplicationController
     @highscores = @level.highscores
     @start = 0
     @end = 10
-    if params.has_key?[:page]
+    if params.has_key?(:page)
       @start = params[:page]
       @end = @start + 10
     end
