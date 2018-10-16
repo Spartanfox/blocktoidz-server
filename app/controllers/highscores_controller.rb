@@ -10,7 +10,6 @@ class HighscoresController < ApplicationController
     @end = 10
     if params.has_key?(:page)
       @start = params[:page].to_i
-      @end = @start + 10
     end
     @highscores = @highscores.sort{|a,b| b.score.to_i <=> a.score.to_i}
     @highscores = @highscores[@start,@end]
