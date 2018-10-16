@@ -6,6 +6,12 @@ class HighscoresController < ApplicationController
   def index
     @level = Level.find_by_name(params[:level_id])
     @highscores = @level.highscores
+    @start = 0
+    @end = 0
+    if params[:page]?
+      @start = params[:page]
+      @end = @start + 10
+    end
   end
 
   # GET /highscores/1
